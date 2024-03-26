@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { ThemeConsumer } from "styled-components";
-import Markdown from "react-markdown";
 
 const MessageInputContainer = styled.div`
   .message-input-container {
@@ -40,7 +39,6 @@ function MessageInput({ message, onMessageChange }) {
               onChange={onMessageChange}
               placeholder="Type your message here..."
             />
-            <Markdown source={message} />
           </div>
         </MessageInputContainer>
       )}

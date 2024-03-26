@@ -5,6 +5,7 @@ import PromptSelector from "./components/PromptSelector";
 import ResponseGeneratorButton from "./components/ResponseGeneratorButton";
 import ThemeToggler from "./components/ThemeToggler";
 import { GlobalStyles, darkTheme, lightTheme } from "./components/themes";
+import ReactMarkdown from "react-markdown";
 
 const StyledApp = styled.div`
   max-width: 800px;
@@ -77,7 +78,11 @@ function App() {
         <PromptSelector prompts={prompts} onPromptChange={handlePromptChange} />
         <MessageInput message={message} onMessageChange={handleMessageChange} />
         <ResponseGeneratorButton onGenerate={handleGenerateResponse} />
-        {response && <ResponseContainer>{response}</ResponseContainer>}
+        {response && (
+          <ResponseContainer>
+            <ReactMarkdown>{response}</ReactMarkdown>
+          </ResponseContainer>
+        )}
       </StyledApp>
     </ThemeProvider>
   );
