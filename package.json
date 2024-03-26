@@ -4,10 +4,11 @@
   "description": "A monorepo project containing a React frontend and a FastAPI backend to generate responses based on system prompts.",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
-    "test": "NODE_OPTIONS=--openssl-legacy-provider react-scripts test",
-    "eject": "NODE_OPTIONS=--openssl-legacy-provider react-scripts eject"
+    "prestart": "node -e \"if (parseInt(process.versions.node.split('.')[0], 10) >= 17) { console.error('Unsupported Node.js version. Please use Node.js version 16.x or below.'); process.exit(1); }\"",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
     "styled-components": "^6.1.8"
   },
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=14.0.0 <17.0.0",
     "npm": ">=6.0.0"
   },
   "browserslist": {
