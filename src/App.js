@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import styled, { ThemeProvider } from "styled-components";
 import MessageInput from "./components/MessageInput";
 import PromptSelector from "./components/PromptSelector";
 import ResponseGeneratorButton from "./components/ResponseGeneratorButton";
-import ThemeToggler from "./components/ThemeToggler";
+import { FaMoon, FaSun } from "react-icons/fa"; // Importing icons for theme toggling
 import { GlobalStyles, darkTheme, lightTheme } from "./components/themes";
-import ReactMarkdown from "react-markdown";
 
 const StyledApp = styled.div`
   max-width: 800px;
@@ -19,6 +19,14 @@ const ResponseContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+`;
+
+const ThemeToggleIcon = styled.div`
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 `;
 
 function App() {
@@ -47,10 +55,12 @@ function App() {
 
   const handlePromptChange = (prompt) => {
     setSelectedPrompt(prompt);
+    setResponse(""); // Clear the response when a new prompt is selected
   };
 
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
+    setResponse(""); // Clear the response when the message is changed
   };
 
   const handleGenerateResponse = () => {
@@ -73,9 +83,15 @@ function App() {
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
       <StyledApp>
-        <ThemeToggler theme={theme} toggleTheme={themeToggler} />
+        <ThemeToggleIcon onClick={themeToggler}>
+          {theme === "light" ? <FaMoon /> : <FaSun />}
+        </ThemeToggleIcon>
         <h1>System Prompt Generator</h1>
-        <PromptSelector prompts={prompts} onPromptChange={handlePromptChange} />
+        <PromptSelector
+          prompts={prompts}
+          onPromptChange={handlePromptChange}
+          selectedPrompt={selectedPrompt}
+        />
         <MessageInput message={message} onMessageChange={handleMessageChange} />
         <ResponseGeneratorButton onGenerate={handleGenerateResponse} />
         {response && (

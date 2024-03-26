@@ -5,7 +5,7 @@ export const lightTheme = {
   text: "#0D0D0D",
   toggleBorder: "#6B8096",
   background: "#E1E1E1",
-  primary: "#007BFF", // added primary color
+  primary: "#FF5722",
 };
 
 export const darkTheme = {
@@ -13,7 +13,7 @@ export const darkTheme = {
   text: "#FAFAFA",
   toggleBorder: "#6B8096",
   background: "#999",
-  primary: "#1D1D1D", // added primary color
+  primary: "#FF5722",
 };
 
 export const GlobalStyles = createGlobalStyle`
