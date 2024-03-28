@@ -1,5 +1,11 @@
 # System Prompt Response Generator
 
+This project was developed by Cursor IDE, as part of an experiment to explore the capabilities using AI to write code.
+
+Thew following README.md was also written by Cursor IDE.
+
+-----------------
+
 This project is a monorepo containing two main components: a React frontend application and a FastAPI backend service. The goal of this project is to provide a user interface where users can select a system prompt, input a message, and generate a response through a RESTful API.
 
 ## Structure
