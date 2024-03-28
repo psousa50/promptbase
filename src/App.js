@@ -34,6 +34,8 @@ const ResponseContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  overflow: auto; /* Allows scrolling for long responses */
+  max-height: 600px; /* Sets a maximum height to maintain layout */
 `;
 
 const ThemeToggleIcon = styled.div`
