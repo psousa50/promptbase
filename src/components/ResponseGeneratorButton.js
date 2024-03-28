@@ -4,6 +4,7 @@ import styled, { ThemeConsumer } from "styled-components";
 const ButtonContainer = styled.div`
   .response-generator-button-container {
     text-align: center;
+    margin-top: 20px;
   }
 
   button {

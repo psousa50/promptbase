@@ -8,13 +8,28 @@ import { FaMoon, FaSun } from "react-icons/fa"; // Importing icons for theme tog
 import { GlobalStyles, darkTheme, lightTheme } from "./components/themes";
 
 const StyledApp = styled.div`
-  max-width: 800px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 20px;
 `;
 
-const ResponseContainer = styled.div`
+const ContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
+  gap: 20px; /* Added space between message and response */
+`;
+
+const MessageContainer = styled.div`
+  width: 48%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+`;
+
+const ResponseContainer = styled.div`
+  width: 50%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -92,13 +107,20 @@ function App() {
           onPromptChange={handlePromptChange}
           selectedPrompt={selectedPrompt}
         />
-        <MessageInput message={message} onMessageChange={handleMessageChange} />
+        <ContentContainer>
+          <MessageContainer>
+            <MessageInput
+              message={message}
+              onMessageChange={handleMessageChange}
+            />
+          </MessageContainer>
+          {response && (
+            <ResponseContainer>
+              <ReactMarkdown>{response}</ReactMarkdown>
+            </ResponseContainer>
+          )}
+        </ContentContainer>
         <ResponseGeneratorButton onGenerate={handleGenerateResponse} />
-        {response && (
-          <ResponseContainer>
-            <ReactMarkdown>{response}</ReactMarkdown>
-          </ResponseContainer>
-        )}
       </StyledApp>
     </ThemeProvider>
   );

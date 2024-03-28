@@ -3,12 +3,11 @@ import styled, { ThemeConsumer } from "styled-components";
 
 const MessageInputContainer = styled.div`
   .message-input-container {
-    font-family: Arial, sans-serif;
-    margin: 10px;
+    width: 50%;
     padding: 10px;
-    border: 1px solid ${({ theme }) => theme.toggleBorder};
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: ${({ theme }) => theme.body};
+    background-color: #f9f9f9;
   }
 
   label {
@@ -18,9 +17,7 @@ const MessageInputContainer = styled.div`
 
   textarea {
     width: 100%;
-    height: 100px; // Made the text input taller
-    padding: 5px;
-    margin-top: 5px;
+    height: 600px;
     border: 1px solid ${({ theme }) => theme.toggleBorder};
     border-radius: 3px;
   }
@@ -31,15 +28,12 @@ function MessageInput({ message, onMessageChange }) {
     <ThemeConsumer>
       {(theme) => (
         <MessageInputContainer theme={theme}>
-          <div className="message-input-container">
-            <label htmlFor="messageInput">Your Message:</label>
-            <textarea
-              id="messageInput"
-              value={message}
-              onChange={onMessageChange}
-              placeholder="Type your message here..."
-            />
-          </div>
+          <textarea
+            id="messageInput"
+            value={message}
+            onChange={onMessageChange}
+            placeholder="Type your message here..."
+          />
         </MessageInputContainer>
       )}
     </ThemeConsumer>
