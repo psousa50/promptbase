@@ -1,6 +1,6 @@
+import { lighten } from "polished";
 import React from "react";
 import styled, { ThemeConsumer } from "styled-components";
-import { lighten } from "polished";
 
 const PromptSelectorContainer = styled.div`
   display: grid;
@@ -33,12 +33,11 @@ function PromptSelector({ prompts, onPromptChange, selectedPrompt }) {
         <PromptSelectorContainer theme={theme}>
           {prompts.map((prompt, index) => {
             const isSelected = prompt === selectedPrompt;
-            console.log(isSelected);
             return (
               <PromptCard
                 key={index}
                 theme={theme}
-                $isSelected={isSelected} // Corrected prop passing
+                $isSelected={isSelected}
                 onClick={() => onPromptChange(prompt)}
               >
                 {prompt}

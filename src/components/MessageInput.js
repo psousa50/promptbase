@@ -23,7 +23,13 @@ const MessageInputContainer = styled.div`
   }
 `;
 
-function MessageInput({ message, onMessageChange }) {
+function MessageInput({ message, onMessageChange, onGenerateResponse }) {
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && event.metaKey) {
+      onGenerateResponse();
+    }
+  };
+
   return (
     <ThemeConsumer>
       {(theme) => (
@@ -32,6 +38,7 @@ function MessageInput({ message, onMessageChange }) {
             id="messageInput"
             value={message}
             onChange={onMessageChange}
+            onKeyDown={handleKeyDown}
             placeholder="Type your message here..."
           />
         </MessageInputContainer>

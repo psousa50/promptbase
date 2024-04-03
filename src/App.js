@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, keyframes } from "styled-components";
 import MessageInput from "./components/MessageInput";
 import PromptSelector from "./components/PromptSelector";
 import ResponseGeneratorButton from "./components/ResponseGeneratorButton";
-import { FaMoon, FaSun } from "react-icons/fa"; // Importing icons for theme toggling
+import { FaMoon, FaSun, FaSpinner } from "react-icons/fa"; // Importing icons for theme toggling and adding spinner icon
 import { GlobalStyles, darkTheme, lightTheme } from "./components/themes";
 
 const StyledApp = styled.div`
@@ -46,12 +46,31 @@ const ThemeToggleIcon = styled.div`
   right: 20px;
 `;
 
+const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const SpinnerIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${spin} 2s linear infinite;
+  width: 50%; /* Ensure it takes the full width of its container */
+  height: 600px; /* Match the height of the message input for alignment */
+`;
+
 function App() {
   const [theme, setTheme] = useState("light");
   const [prompts, setPrompts] = useState([]);
   const [selectedPrompt, setSelectedPrompt] = useState("");
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading state
 
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -81,6 +100,7 @@ function App() {
   };
 
   const handleGenerateResponse = () => {
+    setIsLoading(true); // Set loading to true when generating response
     // Send the selected prompt and message to the backend to generate a response
     fetch("/api/generate", {
       method: "POST",
@@ -92,8 +112,12 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setResponse(data.response);
+        setIsLoading(false); // Set loading to false after receiving response
       })
-      .catch((error) => console.error("Failed to generate response:", error));
+      .catch((error) => {
+        console.error("Failed to generate response:", error);
+        setIsLoading(false); // Ensure loading is set to false even if there's an error
+      });
   };
 
   return (
@@ -114,12 +138,19 @@ function App() {
             <MessageInput
               message={message}
               onMessageChange={handleMessageChange}
+              onGenerateResponse={handleGenerateResponse} // Using onGenerateResponse prop
             />
           </MessageContainer>
-          {response && (
-            <ResponseContainer>
-              <ReactMarkdown>{response}</ReactMarkdown>
-            </ResponseContainer>
+          {isLoading ? (
+            <SpinnerIcon>
+              <FaSpinner />
+            </SpinnerIcon>
+          ) : (
+            response && (
+              <ResponseContainer>
+                <ReactMarkdown>{response}</ReactMarkdown>
+              </ResponseContainer>
+            )
           )}
         </ContentContainer>
         <ResponseGeneratorButton onGenerate={handleGenerateResponse} />

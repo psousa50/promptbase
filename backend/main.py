@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-llm = ChatOpenAI(model="gpt-4-turbo-preview", temperature=0.0)
+llm = ChatOpenAI(model="gpt-4-turbo-preview", temperature=0.5)
 
 
 class PromptRequest(BaseModel):
