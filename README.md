@@ -2,7 +2,7 @@
 
 This project was developed by Cursor IDE, as part of an experiment to explore the capabilities using AI to write code.
 
-Thew following README.md was also written by Cursor IDE.
+The following README.md was also written by Cursor IDE (with some human changes).
 
 -----------------
 
@@ -12,7 +12,7 @@ This project is a monorepo containing two main components: a React frontend appl
 
 The project is organized into two main directories:
 
-- `frontend`: Contains the React application created with Create React App.
+- `root`: Contains the React application created with Create React App.
 - `backend`: Contains the FastAPI application for handling RESTful API requests.
 
 ### Frontend Components
@@ -33,14 +33,12 @@ The project is organized into two main directories:
 
 ### Prerequisites
 
-- Node.js and npm (for the frontend)
+- Node.js and npm (for the frontend) (node version < 17)
 - Python 3.8 or higher (for the backend)
 
 ### Installing Dependencies
 
-#### Frontend
-
-Navigate to the `frontend` directory and run:
+For the frontend, run:
 
 ```bash
 npm install
@@ -48,14 +46,10 @@ npm install
 
 This will install all the necessary dependencies for the React application.
 
-#### Backend
-
-It is recommended to create a virtual environment for the Python project. Navigate to the `backend` directory and run:
+For the Backend, run:
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-pip install fastapi uvicorn
+poetry install
 ```
 
 This will install FastAPI and Uvicorn, which is needed to run the server.
