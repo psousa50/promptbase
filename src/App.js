@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { FaMoon, FaSpinner, FaSun } from "react-icons/fa"; // Importing icons for theme toggling and adding spinner icon
 import ReactMarkdown from "react-markdown";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import MessageInput from "./components/MessageInput";
 import PromptSelector from "./components/PromptSelector";
 import ResponseGeneratorButton from "./components/ResponseGeneratorButton";
-import { FaMoon, FaSun, FaSpinner } from "react-icons/fa"; // Importing icons for theme toggling and adding spinner icon
 import { GlobalStyles, darkTheme, lightTheme } from "./components/themes";
 
 const StyledApp = styled.div`
@@ -64,6 +64,20 @@ const SpinnerIcon = styled.div`
   height: 600px; /* Match the height of the message input for alignment */
 `;
 
+const ModelSelectorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+`;
+
+const ModelLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+`;
+
 function App() {
   const [theme, setTheme] = useState("light");
   const [prompts, setPrompts] = useState([]);
@@ -71,6 +85,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false); // State to manage loading state
+  const [selectedModel, setSelectedModel] = useState("openai-gpt4"); // Default model
 
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -107,7 +122,11 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: selectedPrompt, message: message }),
+      body: JSON.stringify({
+        prompt: selectedPrompt,
+        message: message,
+        llm_model_name: selectedModel,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -133,6 +152,26 @@ function App() {
           onPromptChange={handlePromptChange}
           selectedPrompt={selectedPrompt}
         />
+        <ModelSelectorContainer>
+          <ModelLabel>
+            <input
+              type="radio"
+              value="openai-gpt4"
+              checked={selectedModel === "openai-gpt4"}
+              onChange={(e) => setSelectedModel(e.target.value)}
+            />
+            OpenAI GPT-4
+          </ModelLabel>
+          <ModelLabel>
+            <input
+              type="radio"
+              value="groq-mixtral"
+              checked={selectedModel === "groq-mixtral"}
+              onChange={(e) => setSelectedModel(e.target.value)}
+            />
+            Groq Mixtral
+          </ModelLabel>
+        </ModelSelectorContainer>
         <ContentContainer>
           <MessageContainer>
             <MessageInput

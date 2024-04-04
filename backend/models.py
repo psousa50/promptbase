@@ -16,6 +16,7 @@ class PromptRequest(BaseModel):
 class PromptResponse(BaseModel):
     response: str
 
+
 # Note: The PromptRequest and PromptResponse classes are already defined in main.py for the API endpoints.
 # If you plan to use these models across different files or modules,
 # it's a good practice to define them in a models.py file,
