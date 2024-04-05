@@ -2,13 +2,13 @@
 
 ## Introduction
 
-AI is great and I love it. Generative AI is even better. I think many of us still feel amazed by the code that a AI assistant can generate. Say "Write the snake game in Python, using Pygame" to one of those assistants, and bang, you have a working snake game!
+AI is great and I love it. Generative AI is even better. Many of us still feel amazed by the code that an AI assistant can generate. Say "Write the snake game in Python, using Pygame" to one of those assistants, and bang, you have a working snake game!
 
-But what about using AI to make changes to an existing codebase? What if you could ask an AI assistant to add a new feature to your codebase, and that required changes to multiple files? Even harder, what if you just started working in a company, you don't know anything about the codebase, and you need to make some changes to it?
+But what about using AI to make changes to an existing codebase? What if you could ask an AI assistant to add a new feature to your codebase, and that required changes to multiple files? Even harder, what if you just had started working at a company, don't know anything about the codebase, and need to make some changes to it?
 
 ![alt text](images/cover.webp)
 
-That's what I propose to explore in this blog post. I will try yo use an AI code assistant to make changes to an existing codebase.
+That's what I propose to explore in this blog post. I will try to use an AI code assistant to make changes to an existing codebase.
 
 For this experiment, I selected GitHub Copilot, Aider and Cursor IDE, because all of them have some support to analyze a full codebase, instead of just a single file.
 
@@ -23,7 +23,7 @@ For this task to be successful, two problems need to be solved:
 - The limited context window size of an LLM
 - Which files need to be changed
 
-The first problem is related to the size of the codebase. If it's to big, it's going to be impossible to fit all the code in the LLM context window. Even if we could do that, the cost would probably be too high, due to the large number of tokens used, and the LLM would probably not be able to generate a good solution using all of that amount of code.
+The first problem is related to the size of the codebase. If it's too big, it's going to be impossible to fit all the code in the LLM context window. Even if we could do that, the cost would probably be too high, due to the large number of tokens used, and the LLM would probably not be able to generate a good solution using all of that amount of code.
 
 The second problem is related to the first one. If it's not a good idea to use the whole codebase, which files should be used? The AI needs to know which files are related to the task, and which files are not.
 
@@ -31,7 +31,7 @@ The second problem is related to the first one. If it's not a good idea to use t
 
 We're going to use a simple mono repo containing two projects: a React frontend application and a FastAPI backend service. The goal of this project is to provide a user interface where users can select a system prompt, input a message, and generate a response through a RESTful API.
 
-*(It'a very simple project and it was mostly created by Cursor IDE)* 🙂
+*(This is a very simple project and it was mostly created by Cursor IDE)* 🙂
 
 ## The New feature
 
@@ -67,7 +67,7 @@ The last message of Copilot says it all. We, humans, need to do the rest of the 
 
 ## Aider
 
-Aider's response is a bit better. It was able to change the PromptRequest to include an Id, but it changed only one of the prompt's static data to contain an Id. It was also able to change the UI to fetch the ID and the text from the APIs but it missed the part where the UI should use the ID to generate the responses.
+Aider's response is a bit better. It was able to change the PromptRequest to include an ID, but it changed only one of the prompt's static data to contain an ID. It was also able to change the UI to fetch the ID and the text from the APIs but it missed the part where the UI should use the ID to generate the responses.
 
 Here is a clipped screenshot of what Aider generated:
 
@@ -87,9 +87,9 @@ One nice feature of Aider is that it actually changes the files and it can also 
 
 Cursor IDE fetched a lot of files from the codebase, including `pyproject.toml` and `.gitignore`, which usefulness is questionable. However, it only includes chunks of the files in the final prompt, minimizing the context window size and the cost.
 
-The final result, however, is amazing. Cursor IDE was able to change the Prompt model to include an Id, and change the API endpoints and the UI to use that Id. Everything worked like a charm, without any human intervention!
+The final result, however, is amazing. Cursor IDE was able to change the Prompt model to include an ID and change the API endpoints and the UI to use that ID. Everything worked like a charm, without any human intervention!
 
-Here is the Cursor IDE result:
+Here is the beginning of the Cursor IDE result:
 
 ![cursor_ide](images/cursor_ide.png)
 
@@ -97,7 +97,7 @@ The process of accepting the changes is a bit cumbersome, you have to go through
 
 ## Costs
 
-There are no free lunches. All of these tools have a cost associated with them. 
+There are no free lunches. All of these tools have a cost associated with them.
 
 ### GitHub Copilot
 
@@ -113,20 +113,18 @@ Aider can also work with OpenAI API-compatible models, so you can use them too. 
 
 Cursor IDE also has a free tear but it only includes 50 slow GPT-4 uses, which is definitely not enough. You have the pro option, for $20 a month, which includes 500 fast GPT-4 uses.
 
-From what I've seen, Cursor IDE use a request for the initial plan and another one for **each** file that is changed. So, if you have a lot of files, the costs can add up quickly. For this experiment, Cursor IDE used 6 requests. 500 requests per month is about per day. It's easy to see that with extensive use, that's probably not enough. You can always pay more $20 for an additional 500 uses.
+From what I've seen, Cursor IDE uses a request for the initial plan and another one for **each** file that is changed. So, if you have a lot of files, the costs can add up quickly. For this experiment, Cursor IDE used 6 requests. 500 requests per month is about 20 requests per day. It's easy to see that with extensive use, that's probably not enough. You can always pay an additional $20 for 500 more uses.
 
 You may also provide your own OpenAI key for Cursor IDE to use, and then the costs will be similar to Aider.
 
 ## Conclusion
 
-Cursor IDE was the clear winner in this test, the only one I would probably use for myself. I just hope they keep updating the code when VSCode updates theirs, since this is a fork of VSCode. I don't wont to be stuck in an old version of VSCode or wait longer to get a new update from VSCode.
+Cursor IDE was the clear winner in this test, the only one I would probably use for myself, at least for this kind of task. I hope they keep updating the code when VSCode updates theirs since this is a fork of VSCode. I don't want to be stuck in an old version of VSCode or wait longer to get a new update from VSCode.
 
-This was a simple experiment, with a very simple codebase, and it's not meant to be a definitive comparison between these three tools. I just wanted to see by myself how these tools works with a real codebase and a real task. I've watched a lot of videos showing how great those tools are, but I wanted to see it by myself, and now I can say that I'm not impressed. Again, this was not an extensive test, and maybe I'm not using the tools properly.
+This was a simple experiment, with a very simple codebase, and it's not meant to be a definitive comparison between these three tools. I just wanted to see by myself how these tools work with a real codebase and a real task. I've watched a lot of videos showing how great those tools are, but I wanted to check this by myself, and now I can say that I'm not fully impressed. Again, this was not an extensive test, and maybe I'm not using the tools to their full potential.
 
-New tools are being developed every day, and I'm sure that in the future we will have even better tools to help us with this task (actually, while I was writing this post, I bumped into a new version of Codiumate that also supports full codebase analysis).
+New tools are being developed every day, and I'm sure that in the future we will have even better ones to help us coding better and faster (actually, while I was writing this post, I bumped into a new version of Codiumate that also supports full codebase analysis). I intend to keep an eye on these tools and also test them with this experiment again in the future. Or perhaps with a larger codebase.
 
-I intend to keep an eye on these tools and also test them with this experiment again in the future. Or perhaps with a larger codebase.
-
-Nevertheless, my gut feeling is that this kind of tools, even when they work well, are still far from being able to replace a human developer. I believe that are really useful for small pet projects like this one, but I'm not sure about relying on them for writing production code. Time will tell.
+Nevertheless, my gut feeling is that these kinds of tools, even when they work well, are still far from being able to replace a human developer. I believe they are really useful for small pet projects like this one, but I'm not sure about relying on them for writing production code. Time will tell.
 
 I hope this post helps you to understand the differences between those tools and how they can help you to make changes to an existing codebase.
