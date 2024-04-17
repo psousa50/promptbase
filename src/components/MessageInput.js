@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { ThemeConsumer } from "styled-components";
 
 const MessageInputContainer = styled.div`
@@ -24,11 +24,19 @@ const MessageInputContainer = styled.div`
 `;
 
 function MessageInput({ message, onMessageChange, onGenerateResponse }) {
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" && event.metaKey) {
-      onGenerateResponse();
-    }
-  };
+  useEffect(() => {
+    const handleGlobalKeyDown = (event) => {
+      if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+        onGenerateResponse();
+      }
+    };
+
+    document.addEventListener("keydown", handleGlobalKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleGlobalKeyDown);
+    };
+  }, [onGenerateResponse]);
 
   return (
     <ThemeConsumer>
@@ -38,7 +46,6 @@ function MessageInput({ message, onMessageChange, onGenerateResponse }) {
             id="messageInput"
             value={message}
             onChange={onMessageChange}
-            onKeyDown={handleKeyDown}
             placeholder="Type your message here..."
           />
         </MessageInputContainer>
