@@ -85,8 +85,8 @@ This will serve the API on `http://localhost:8000`.
 
 ## API Endpoints
 
-- `GET /prompts`: Returns the list of available system prompts.
-- `POST /generate`: Receives a system prompt and a message, and returns a generated response.
+- `GET api/prompts`: Returns the list of available system prompts.
+- `POST api/generate`: Receives a system prompt and a message, and returns a generated response.
 
 ## Contributing
 
@@ -94,4 +94,5 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 
 ## License
 
-This project is open-sourced under the MIT License. See the LICENSE file for more details.
+This project is open-sourced under the MIT License. See the [LICENCE](LICENCE) file for more details.
+
