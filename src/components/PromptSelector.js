@@ -31,16 +31,16 @@ function PromptSelector({ prompts, onPromptChange, selectedPrompt }) {
     <ThemeConsumer>
       {(theme) => (
         <PromptSelectorContainer theme={theme}>
-          {prompts.map((prompt, index) => {
-            const isSelected = prompt === selectedPrompt;
+          {prompts.map((prompt) => {
+            const isSelected = prompt.id === selectedPrompt.id;
             return (
               <PromptCard
-                key={index}
+                key={prompt.id}
                 theme={theme}
                 $isSelected={isSelected}
                 onClick={() => onPromptChange(prompt)}
               >
-                {prompt}
+                {prompt.text}
               </PromptCard>
             );
           })}
