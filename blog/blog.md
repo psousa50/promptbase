@@ -125,6 +125,8 @@ This was a simple experiment, with a very simple codebase, and it's not meant to
 
 New tools are being developed every day, and I'm sure that in the future we will have even better ones to help us coding better and faster (actually, while I was writing this post, I bumped into a new version of Codiumate that also supports full codebase analysis). I intend to keep an eye on these tools and also test them with this experiment again in the future. Or perhaps with a larger codebase.
 
+*A quick side note: I did try to use this tools on large codebases, like FreeCodeCamp, or even React, to see if they could solve the issues on their Github repos, but the results were quite disappointing. I think the tools are not ready for that yet.*
+
 Nevertheless, my gut feeling is that these kinds of tools, even when they work well, are still far from being able to replace a human developer. I believe they are really useful for small pet projects like this one, but I'm not sure about relying on them for writing production code. Time will tell.
 
 I hope this post helps you to understand the differences between those tools and how they can help you to make changes to an existing codebase.
