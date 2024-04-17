@@ -40,7 +40,7 @@ def generate_response(system_prompt: str, message: str, model_name: str) -> str:
     else:
         raise ValueError("Unsupported model name")
     response = llm_chain.invoke(input={"message": message})
-    return response.content
+    return str(response.content)
 
 
 @app.get("/api/prompts", response_model=List[str])
