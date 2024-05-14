@@ -170,7 +170,17 @@ function App() {
             />
             Groq Mixtral
           </ModelLabel>
+          <ModelLabel>
+            <input
+              type="radio"
+              value="openrouter-wizard"
+              checked={selectedModel === "openrouter-wizard"}
+              onChange={e => setSelectedModel(e.target.value)}
+            />
+            OpenRouter Wizard
+          </ModelLabel>
         </ModelSelectorContainer>
+        <ResponseGeneratorButton onGenerate={handleGenerateResponse} />
         <ContentContainer>
           <MessageContainer>
             <MessageInput
@@ -191,7 +201,6 @@ function App() {
             )
           )}
         </ContentContainer>
-        <ResponseGeneratorButton onGenerate={handleGenerateResponse} />
       </StyledApp>
     </ThemeProvider>
   )

@@ -34,5 +34,9 @@ def get_prompts():
             id=UUID("e7f89012-3456-7890-abcd-ef1234567890"),
             text="Translate this text to Portuguese of Portugal.",
         ),
+        Prompt(
+            id=UUID("f8901234-5678-90ab-cdef-123456789012"),
+            text="Translate this text to British English.",
+        ),
     ]
     return prompts
